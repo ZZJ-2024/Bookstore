@@ -5,15 +5,9 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(
         bookstore_plus main.cpp
-        storage.h
         storage.cpp
-        booksystem.cpp
-        booksystem.h
         tools.cpp
-        tools.h
+        booksystem.cpp
+        logsystem.cpp
         usersystem.cpp
-        usersystem.h
-        logsystem.cpp
-        logsystem.h
-        logsystem.cpp
 )
