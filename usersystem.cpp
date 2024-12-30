@@ -3,7 +3,9 @@ usersystem::usersystem() {
     userstorage.Set(USERINDEX,USER);
     user_now.Privilege = 0;
     user root{"root","sjtu","",7};
-    userstorage.insertData(root,userstorage.entries);
+    if(!userstorage.Find(root,userstorage.entries)) {
+        userstorage.insertData(root,userstorage.entries);
+    }
 }
 usersystem::~usersystem() {
 
@@ -356,11 +358,11 @@ void usersystem::Delete(const string &line) {
     userstorage.deleteData(find,userstorage.entries);
 }
 void usersystem::Logout() {
-    if(get_login_now().privilege < 1) {
+    if(login_now.size() == 0) {
         errorcout();
         return;
     }
-    if(login_now.size() == 0) {
+    if(get_login_now().privilege < 1) {
         errorcout();
         return;
     }

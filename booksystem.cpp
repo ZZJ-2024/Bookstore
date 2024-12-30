@@ -41,6 +41,10 @@ void print(const book & book1) {
     cout<<book1.Quantity<<endl;
 }
 void booksystem::Show(const string &line,usersystem&UserSystem) {
+  if(UserSystem.login_number() == 0) {
+      errorcout();
+      return;
+  }
   if(UserSystem.get_login_now().privilege <1) {
         errorcout();
         return;
@@ -183,6 +187,10 @@ void booksystem::Show(const string &line,usersystem&UserSystem) {
     }
 }
 void booksystem::Select(const string & line, usersystem &usersystem) {
+    if(usersystem.login_number() == 0) {
+        errorcout();
+        return;
+    }
     if(usersystem.get_login_now().privilege < 3) {
         errorcout();
         return;
@@ -228,6 +236,10 @@ void booksystem::Select(const string & line, usersystem &usersystem) {
     }
 }
 void booksystem::Buy(const string & line,logsystem&Logsystem,usersystem&UserSystem) {
+    if(UserSystem.login_number() == 0 ) {
+        errorcout();
+        return;
+    }
     if(UserSystem.get_login_now().privilege <1) {
         errorcout();
         return;
@@ -284,6 +296,10 @@ void booksystem::Buy(const string & line,logsystem&Logsystem,usersystem&UserSyst
     }
 }
 void booksystem::Modify(const string &line,usersystem&usersystem) {
+    if(usersystem.login_number() == 0) {
+        errorcout();
+        return;
+    }
     if(usersystem.get_login_now().privilege < 3) {
         errorcout();
         return;
@@ -502,6 +518,10 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
 }
 /*##keyword还得改改,一个里面重复的情况没有考虑*/
 void booksystem::Import(const string &line,usersystem&usersystem,logsystem&Logsystem) {
+    if(usersystem.login_number() == 0) {
+        errorcout();
+        return;
+    }
     if(usersystem.get_login_now().privilege < 3) {
         errorcout();
         return;
