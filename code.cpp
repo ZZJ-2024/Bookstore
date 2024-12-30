@@ -79,10 +79,11 @@ int main() {
             if(scanner.NextToken() == "employee"){}
         }
         else if(command == "eof") {
-            return 0;
+            break;
         }
         else {
             errorcout();
         }
     }
+    return 0;
 }
