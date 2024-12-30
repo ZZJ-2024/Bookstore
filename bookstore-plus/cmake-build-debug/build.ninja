@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: bookstore_plus
+# Project: code
 # Configurations: Debug
 # =============================================================================
 
@@ -41,67 +41,67 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/ROG/CLionProject/bookstore-plus/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target bookstore_plus
+# Object build statements for EXECUTABLE target code
 
 
 #############################################
-# Order-only phony target for bookstore_plus
+# Order-only phony target for code
 
-build cmake_object_order_depends_target_bookstore_plus: phony || .
+build cmake_object_order_depends_target_code: phony || .
 
-build CMakeFiles/bookstore_plus.dir/main.cpp.obj: CXX_COMPILER__bookstore_plus_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/main.cpp || cmake_object_order_depends_target_bookstore_plus
-  DEP_FILE = CMakeFiles\bookstore_plus.dir\main.cpp.obj.d
+build CMakeFiles/code.dir/code.cpp.obj: CXX_COMPILER__code_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/code.cpp || cmake_object_order_depends_target_code
+  DEP_FILE = CMakeFiles\code.dir\code.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\bookstore_plus.dir
-  OBJECT_FILE_DIR = CMakeFiles\bookstore_plus.dir
+  OBJECT_DIR = CMakeFiles\code.dir
+  OBJECT_FILE_DIR = CMakeFiles\code.dir
 
-build CMakeFiles/bookstore_plus.dir/storage.cpp.obj: CXX_COMPILER__bookstore_plus_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/storage.cpp || cmake_object_order_depends_target_bookstore_plus
-  DEP_FILE = CMakeFiles\bookstore_plus.dir\storage.cpp.obj.d
+build CMakeFiles/code.dir/storage.cpp.obj: CXX_COMPILER__code_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/storage.cpp || cmake_object_order_depends_target_code
+  DEP_FILE = CMakeFiles\code.dir\storage.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\bookstore_plus.dir
-  OBJECT_FILE_DIR = CMakeFiles\bookstore_plus.dir
+  OBJECT_DIR = CMakeFiles\code.dir
+  OBJECT_FILE_DIR = CMakeFiles\code.dir
 
-build CMakeFiles/bookstore_plus.dir/tools.cpp.obj: CXX_COMPILER__bookstore_plus_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/tools.cpp || cmake_object_order_depends_target_bookstore_plus
-  DEP_FILE = CMakeFiles\bookstore_plus.dir\tools.cpp.obj.d
+build CMakeFiles/code.dir/tools.cpp.obj: CXX_COMPILER__code_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/tools.cpp || cmake_object_order_depends_target_code
+  DEP_FILE = CMakeFiles\code.dir\tools.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\bookstore_plus.dir
-  OBJECT_FILE_DIR = CMakeFiles\bookstore_plus.dir
+  OBJECT_DIR = CMakeFiles\code.dir
+  OBJECT_FILE_DIR = CMakeFiles\code.dir
 
-build CMakeFiles/bookstore_plus.dir/booksystem.cpp.obj: CXX_COMPILER__bookstore_plus_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/booksystem.cpp || cmake_object_order_depends_target_bookstore_plus
-  DEP_FILE = CMakeFiles\bookstore_plus.dir\booksystem.cpp.obj.d
+build CMakeFiles/code.dir/booksystem.cpp.obj: CXX_COMPILER__code_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/booksystem.cpp || cmake_object_order_depends_target_code
+  DEP_FILE = CMakeFiles\code.dir\booksystem.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\bookstore_plus.dir
-  OBJECT_FILE_DIR = CMakeFiles\bookstore_plus.dir
+  OBJECT_DIR = CMakeFiles\code.dir
+  OBJECT_FILE_DIR = CMakeFiles\code.dir
 
-build CMakeFiles/bookstore_plus.dir/logsystem.cpp.obj: CXX_COMPILER__bookstore_plus_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/logsystem.cpp || cmake_object_order_depends_target_bookstore_plus
-  DEP_FILE = CMakeFiles\bookstore_plus.dir\logsystem.cpp.obj.d
+build CMakeFiles/code.dir/logsystem.cpp.obj: CXX_COMPILER__code_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/logsystem.cpp || cmake_object_order_depends_target_code
+  DEP_FILE = CMakeFiles\code.dir\logsystem.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\bookstore_plus.dir
-  OBJECT_FILE_DIR = CMakeFiles\bookstore_plus.dir
+  OBJECT_DIR = CMakeFiles\code.dir
+  OBJECT_FILE_DIR = CMakeFiles\code.dir
 
-build CMakeFiles/bookstore_plus.dir/usersystem.cpp.obj: CXX_COMPILER__bookstore_plus_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/usersystem.cpp || cmake_object_order_depends_target_bookstore_plus
-  DEP_FILE = CMakeFiles\bookstore_plus.dir\usersystem.cpp.obj.d
+build CMakeFiles/code.dir/usersystem.cpp.obj: CXX_COMPILER__code_unscanned_Debug C$:/Users/ROG/CLionProject/bookstore-plus/usersystem.cpp || cmake_object_order_depends_target_code
+  DEP_FILE = CMakeFiles\code.dir\usersystem.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\bookstore_plus.dir
-  OBJECT_FILE_DIR = CMakeFiles\bookstore_plus.dir
+  OBJECT_DIR = CMakeFiles\code.dir
+  OBJECT_FILE_DIR = CMakeFiles\code.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target bookstore_plus
+# Link build statements for EXECUTABLE target code
 
 
 #############################################
-# Link the executable bookstore_plus.exe
+# Link the executable code.exe
 
-build bookstore_plus.exe: CXX_EXECUTABLE_LINKER__bookstore_plus_Debug CMakeFiles/bookstore_plus.dir/main.cpp.obj CMakeFiles/bookstore_plus.dir/storage.cpp.obj CMakeFiles/bookstore_plus.dir/tools.cpp.obj CMakeFiles/bookstore_plus.dir/booksystem.cpp.obj CMakeFiles/bookstore_plus.dir/logsystem.cpp.obj CMakeFiles/bookstore_plus.dir/usersystem.cpp.obj
+build code.exe: CXX_EXECUTABLE_LINKER__code_Debug CMakeFiles/code.dir/code.cpp.obj CMakeFiles/code.dir/storage.cpp.obj CMakeFiles/code.dir/tools.cpp.obj CMakeFiles/code.dir/booksystem.cpp.obj CMakeFiles/code.dir/logsystem.cpp.obj CMakeFiles/code.dir/usersystem.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\bookstore_plus.dir
+  OBJECT_DIR = CMakeFiles\code.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = bookstore_plus.exe
-  TARGET_IMPLIB = libbookstore_plus.dll.a
-  TARGET_PDB = bookstore_plus.exe.dbg
+  TARGET_FILE = code.exe
+  TARGET_IMPLIB = libcode.dll.a
+  TARGET_PDB = code.exe.dbg
 
 
 #############################################
@@ -129,7 +129,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build bookstore_plus: phony bookstore_plus.exe
+build code: phony code.exe
 
 # =============================================================================
 # Folder targets.
@@ -139,7 +139,7 @@ build bookstore_plus: phony bookstore_plus.exe
 #############################################
 # Folder: C:/Users/ROG/CLionProject/bookstore-plus/cmake-build-debug
 
-build all: phony bookstore_plus.exe
+build all: phony code.exe
 
 # =============================================================================
 # Built-in targets

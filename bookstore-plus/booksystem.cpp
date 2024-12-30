@@ -40,18 +40,21 @@ void print(const book & book1) {
     cout<<"\t";
     cout<<book1.Quantity<<endl;
 }
-void booksystem::Show(const string &line) {
+void booksystem::Show(const string &line,usersystem&UserSystem) {
+  if(UserSystem.get_login_now().privilege <1) {
+        errorcout();
+        return;
+    }
     scanner.Initialize(line);
     string show;
     show = scanner.NextToken();
     if(!scanner.HasMoreToken()) {
-        /*isbn_ids.cout_all();*/
+        cout_all();
     }
     if(scanner.HasMoreToken()) {
         string original;
         original = scanner.NextToken();
-        scanner.skip_index();
-        string index = scanner.Left();
+        string index = skip_string(original);
         if(original[1] == 'I') {
             if(index.length() != 0) {
                 isbn_id find;
@@ -79,21 +82,28 @@ void booksystem::Show(const string &line) {
         if(original[1] == 'n') {
             if(index.length() != 0) {
                 index =index.substr(1,index.length()-2);
+                vector<bookname_id> finds;
                 bookname_id find;
                 int len = index.length();
-                for(int i = 0;i < 60;i ++) {
+                for(int i = 0;i < len;i ++) {
                     find.BookName[i] = index[i];
                 }
                 find.BookName[len] = '\0';
-                find = bookname_ids.Get(find,bookname_ids.entries);
-                if(find == bookname_ids.kv) {
+                finds = bookname_ids.Get_show(find,bookname_ids.entries,finds);
+                if(finds.size() == 0) {
                     cout<<endl;
                 }
                 else {
-                    id_book tmp;
-                    tmp.id = find.id;
-                    tmp = id_books.Get(tmp,id_books.entries);
-                    print(tmp.book_store);
+                    std::set<book> cout_books;
+                    for(auto it : finds) {
+                        id_book find_id_book;
+                        find_id_book.id = it.id;
+                        find_id_book = id_books.Get(find_id_book,id_books.entries);
+                        cout_books.insert(find_id_book.book_store);
+                    }
+                    for(auto it: cout_books) {
+                        print(it);
+                    }
                 }
             }
             else {
@@ -102,58 +112,81 @@ void booksystem::Show(const string &line) {
             }
         }
         if(original[1] == 'a') {
-        if(index.length() != 0){
-            index =index.substr(1,index.length()-2);
-            author_id find;
-            int len = index.length();
-            for(int i = 0;i < 60;i ++) {
-                find.Author[i] = index[i];
-            }
-            find.Author[len] = '\0';
-            find = author_ids.Get(find,author_ids.entries);
-            if(find == author_ids.kv) {
-                cout<<endl;
-            }
-            else {
-                id_book tmp;
-                tmp.id = find.id;
-                tmp = id_books.Get(tmp,id_books.entries);
-                print(tmp.book_store);
-            }
-        }
-            else {
-                errorcout();
-                return;
-            }
-        }
-        if(original[1] == 'k') {
-            if(index.length() != 0) {
-                index =index.substr(1,index.length()-2);
-                keyword_id find;
-                int len = index.length();
-                for(int i = 0;i < 60;i ++) {
-                    find.Keyword[i] = index[i];
-                }
-                find.Keyword[len] = '\0';
-                find = keyword_ids.Get(find,keyword_ids.entries);
-                if(find == keyword_ids.kv) {
-                    cout<<endl;
+            if(index.length() != 0){
+                if(index.length() != 0) {
+                    index =index.substr(1,index.length()-2);
+                    vector<author_id> finds;
+                    author_id find;
+                    int len = index.length();
+                    for(int i = 0;i < len;i ++) {
+                        find.Author[i] = index[i];
+                    }
+                    find.Author[len] = '\0';
+                    finds = author_ids.Get_show(find,author_ids.entries,finds);
+                    if(finds.size() == 0) {
+                        cout<<endl;
+                    }
+                    else {
+                        std::set<book> cout_books;
+                        for(auto it : finds) {
+                            id_book find_id_book;
+                            find_id_book.id = it.id;
+                            find_id_book = id_books.Get(find_id_book,id_books.entries);
+                            cout_books.insert(find_id_book.book_store);
+                        }
+                        for(auto it: cout_books) {
+                            print(it);
+                        }
+                    }
                 }
                 else {
-                    id_book tmp;
-                    tmp.id = find.id;
-                    tmp = id_books.Get(tmp,id_books.entries);
-                    print(tmp.book_store);
+                    errorcout();
+                    return;
                 }
             }
-            else {
-                errorcout();
-                return;
-            }
         }
+            if(original[1] == 'k') {
+                if(index.length() != 0){
+                    if(index.length() != 0) {
+                        index =index.substr(1,index.length()-2);
+                        vector<keyword_id> finds;
+                        keyword_id find;
+                        int len = index.length();
+                        for(int i = 0;i < len;i ++) {
+                            find.Keyword[i] = index[i];
+                        }
+                        find.Keyword[len] = '\0';
+                        finds = keyword_ids.Get_show(find,keyword_ids.entries,finds);
+                        if(finds.size() == 0) {
+                            cout<<endl;
+                        }
+                        else {
+                            std::set<book> cout_books;
+                            for(auto it : finds) {
+                                id_book find_id_book;
+                                find_id_book.id = it.id;
+                                find_id_book = id_books.Get(find_id_book,id_books.entries);
+                                cout_books.insert(find_id_book.book_store);
+                            }
+                            for(auto it: cout_books) {
+                                print(it);
+                            }
+                        }
+                    }
+                    else {
+                        errorcout();
+                        return;
+                    }
+                }
+            }
+
     }
 }
 void booksystem::Select(const string & line, usersystem &usersystem) {
+    if(usersystem.get_login_now().privilege < 3) {
+        errorcout();
+        return;
+    }
     scanner.Initialize(line);
     string select_;
     select_ = scanner.NextToken();
@@ -194,7 +227,11 @@ void booksystem::Select(const string & line, usersystem &usersystem) {
         usersystem.get_login_now().select = isbn;
     }
 }
-void booksystem::Buy(const string & line,logsystem&Logsystem) {
+void booksystem::Buy(const string & line,logsystem&Logsystem,usersystem&UserSystem) {
+    if(UserSystem.get_login_now().privilege <1) {
+        errorcout();
+        return;
+    }
     scanner.Initialize(line);
     string buy = scanner.NextToken();
     if(!scanner.HasMoreToken()) {
@@ -247,6 +284,10 @@ void booksystem::Buy(const string & line,logsystem&Logsystem) {
     }
 }
 void booksystem::Modify(const string &line,usersystem&usersystem) {
+    if(usersystem.get_login_now().privilege < 3) {
+        errorcout();
+        return;
+    }
     login & now_login = usersystem.get_login_now();
     if(now_login.if_select == false) {
         errorcout();
@@ -308,60 +349,75 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
     find_book.id = id;
     find_book = id_books.Get(find_book,id_books.entries);
     book to_store = find_book.book_store;
+    scanner.Initialize(line);
+    modify = scanner.NextToken();
     while(scanner.HasMoreToken()) {
         string original = scanner.NextToken();
         string processed_string = skip_string(original);
-        string isbn_original = char_to_string(find.ISBN,20);
+        string isbn_original = string(find.ISBN,20);
         if(processed_string == isbn_original) {
             errorcout();
             return;
         }
         if(original[1] == 'I') {
             int length = processed_string.length();
+            now_login.select = processed_string;
             for(int i = 0; i < length; i ++) {
                 to_store.ISBN[i] = processed_string[i];
-                find.ISBN[i] = processed_string[i];
             }
             to_store.ISBN[length] = '\0';
-            find.ISBN[length] = '\0';
             find_book.book_store = to_store;
             id_books.deleteData(find_book,id_books.entries);
             id_books.insertData(find_book,id_books.entries);
             isbn_ids.deleteData(find,isbn_ids.entries);
+            for(int i = 0; i < length; i ++) {
+                find.ISBN[i] = processed_string[i];
+            }
+            find.ISBN[length] = '\0';
             isbn_ids.insertData(find,isbn_ids.entries);
         }
         if(original[1] == 'n') {
             processed_string = processed_string.substr(1,processed_string.length()-2);
-            string name_original = char_to_string(to_store.BookName,60);
+            // string name_original = char_to_string(to_store.BookName,60);
             bookname_id find_bookname;
             find_bookname.id = id;
+            for(int i = 0; i < 60;i++) {
+                find_bookname.BookName[i] = to_store.BookName[i];
+            }
             int length = processed_string.length();
             for(int i = 0; i < length; i ++) {
-                find_bookname.BookName[i] = processed_string[i];
                 to_store.BookName[i] = processed_string[i];
             }
             to_store.BookName[length] = '\0';
-            find_bookname.BookName[length] = '\0';
             find_book.book_store = to_store;
             bookname_ids.deleteData(find_bookname,bookname_ids.entries);
+            for(int i = 0; i < length; i ++) {
+                find_bookname.BookName[i] = processed_string[i];
+            }
+            find_bookname.BookName[length] = '\0';
             bookname_ids.insertData(find_bookname,bookname_ids.entries);
             id_books.deleteData(find_book,id_books.entries);
             id_books.insertData(find_book,id_books.entries);
         }
         if(original[1] == 'a') {
             processed_string = processed_string.substr(1,processed_string.length()-2);
-            string author_original = char_to_string(to_store.Author,60);
+            // string author_original = char_to_string(to_store.Author,60);
             author_id find_author;
             find_author.id = id;
+            for(int i = 0; i < 60;i++) {
+                find_author.Author[i] = to_store.Author[i];
+            }
             int length = processed_string.length();
             for(int i = 0; i < length; i ++) {
-                find_author.Author[i] = processed_string[i];
                 to_store.Author[i] = processed_string[i];
             }
             to_store.Author[length] = '\0';
-            find_author.Author[length] = '\0';
             find_book.book_store = to_store;
             author_ids.deleteData(find_author,author_ids.entries);
+            for(int i = 0; i < length; i ++) {
+                find_author.Author[i] = processed_string[i];
+            }
+            to_store.Author[length] = '\0';
             author_ids.insertData(find_author,author_ids.entries);
             id_books.deleteData(find_book,id_books.entries);
             id_books.insertData(find_book,id_books.entries);
@@ -408,6 +464,10 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
 }
 /*##keyword还得改改,一个里面重复的情况没有考虑*/
 void booksystem::Import(const string &line,usersystem&usersystem,logsystem&Logsystem) {
+    if(usersystem.get_login_now().privilege < 3) {
+        errorcout();
+        return;
+    }
     login & now_login = usersystem.get_login_now();
     if(now_login.if_select == false) {
         errorcout();
@@ -456,4 +516,28 @@ void booksystem::Import(const string &line,usersystem&usersystem,logsystem&Logsy
     id_books.deleteData(find_book,id_books.entries);
     id_books.insertData(find_book,id_books.entries);
 }
+void booksystem::cout_all() {
+    auto it = isbn_ids.entries[0];
+    while(true) {
+        if(it.size > 0) {
+            std::array<isbn_id , M> database;
+            isbn_ids.datafile_storage.seekg(it.data_offset);
+            isbn_id tmp ;
+            isbn_ids.datafile_storage.read(reinterpret_cast<char*>(&database),sizeof(database));
+            for(int i = 0;i < M;i++) {
+                if(database[i] != isbn_ids.kv) {
+                    tmp = database[i];
+                    id_book find;
+                    find.id = tmp.id;
+                    find = id_books.Get(find,id_books.entries);
+                    print(find.book_store);
+                }
+            }
+        }
+        if(it.next != -1) {
+            it = isbn_ids. entries[it.next];
+        }
+        else break;
+    }
 
+}

@@ -151,14 +151,6 @@ bool is_count(const string &str) {
     }
     return flag;
 }
-void TokenScanner::skip_index() {
-    for(;pos < line.length();pos++) {
-        if(line[pos] == '=') {
-            break;
-        }
-    }
-    pos++;
-}
 char* string_to_char(const string & str,int M) {
     int len = str.length();
     char* chararray = new char[M];
@@ -172,7 +164,13 @@ string skip_string (string & a) {
     string tmp;
     auto it = a.find('=');
     it++;
-    tmp = a.substr(it);
+    if(it >= a.length()) {
+        tmp = "";
+    }
+    else {
+        tmp = a.substr(it);
+    }
+    return tmp;
 }
 string char_to_string(char* a,int size) {
     string m;

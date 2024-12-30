@@ -157,7 +157,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=bookstore_plus
+CMAKE_PROJECT_NAME:STATIC=code
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/Users/ROG/AppData/Local/Programs/CLion/bin/mingw/bin/ranlib.exe
@@ -242,6 +242,12 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//No help, variable specified on the command line.
+Python3_EXECUTABLE:UNINITIALIZED=C:/Users/ROG/CLionProject/bookstore-plus/venv/Scripts/python.exe
+
+//No help, variable specified on the command line.
+Python_EXECUTABLE:UNINITIALIZED=C:/Users/ROG/CLionProject/bookstore-plus/venv/Scripts/python.exe
+
 //Value Computed by CMake
 bookstore_plus_BINARY_DIR:STATIC=C:/Users/ROG/CLionProject/bookstore-plus/cmake-build-debug
 
@@ -250,6 +256,15 @@ bookstore_plus_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 bookstore_plus_SOURCE_DIR:STATIC=C:/Users/ROG/CLionProject/bookstore-plus
+
+//Value Computed by CMake
+code_BINARY_DIR:STATIC=C:/Users/ROG/CLionProject/bookstore-plus/cmake-build-debug
+
+//Value Computed by CMake
+code_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+code_SOURCE_DIR:STATIC=C:/Users/ROG/CLionProject/bookstore-plus
 
 
 ########################

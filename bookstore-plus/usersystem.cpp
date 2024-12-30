@@ -37,6 +37,10 @@ void usersystem::Register(const string &line) {
         errorcout();
         return;
     }
+    if(scanner.HasMoreToken()) {
+        errorcout();
+        return;
+    }
     user find;
     int len1 = userid.length();
     for(int i = 0 ; i < len1 ;i ++) {
@@ -63,6 +67,10 @@ void usersystem::Register(const string &line) {
     }
 }
 void usersystem::UserAdd(const string &line) {
+    if(get_login_now().privilege < 3) {
+        errorcout();
+        return;
+    }
     scanner.Initialize(line);
     string useradd;
     useradd = scanner.NextToken();
@@ -137,6 +145,10 @@ void usersystem::UserAdd(const string &line) {
     }
 }
 void usersystem::Passwd(const string &line) {
+    if(get_login_now().privilege < 1) {
+        errorcout();
+        return;
+    }
     scanner.Initialize(line);
     string passwd = scanner.NextToken();
     string userid;
@@ -146,6 +158,7 @@ void usersystem::Passwd(const string &line) {
         errorcout();
         return;
     }
+    userid = scanner.NextToken();
     if(!is_id_password(userid)) {
         errorcout();
         return;
@@ -209,12 +222,12 @@ void usersystem::Passwd(const string &line) {
             errorcout();
             return;
         }
-        for(int i = 0 ; i < 30;i++) {
-            if(find.Password[i] != currentpassword[i]) {
+
+        if(string(find.Password) != string(currentpassword)) {
                 errorcout();
                 return;
-            }
         }
+
         userstorage.deleteData(find,userstorage.entries);
         int len2 = newpassword.length();
         for(int i = 0; i < len2;i ++) {
@@ -226,6 +239,7 @@ void usersystem::Passwd(const string &line) {
 
 }
 void usersystem::Su(const string &line) {
+
     scanner.Initialize(line);
     string su;
     string userid;
@@ -276,12 +290,12 @@ void usersystem::Su(const string &line) {
             errorcout();
             return;
         }
-        for(int i = 0;i < 30;i ++) {
-            if(find.Password[i] != password[i]) {
+
+        if(string(find.Password) != string(password)) {
                 errorcout();
                 return;
-            }
         }
+
         login new_login;
         new_login.id = userid;
         new_login.privilege = find.Privilege;
@@ -297,6 +311,10 @@ void usersystem::Su(const string &line) {
     }
 }
 void usersystem::Delete(const string &line) {
+    if(get_login_now().privilege < 7) {
+        errorcout();
+        return;
+    }
     scanner.Initialize(line);
     string delete_ = scanner.NextToken();
     string userid;
@@ -331,6 +349,10 @@ void usersystem::Delete(const string &line) {
     userstorage.deleteData(find,userstorage.entries);
 }
 void usersystem::Logout() {
+    if(get_login_now().privilege < 1) {
+        errorcout();
+        return;
+    }
     if(login_now.size() == 0) {
         errorcout();
         return;

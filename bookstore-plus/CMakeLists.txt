@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.29)
-project(bookstore_plus)
+project(code)
 
 set(CMAKE_CXX_STANDARD 23)
 
 add_executable(
-        bookstore_plus main.cpp
+        code code.cpp
         storage.cpp
         tools.cpp
         booksystem.cpp

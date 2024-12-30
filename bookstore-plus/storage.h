@@ -43,12 +43,12 @@ public:
     bool Find(data&find_data,vector<indexEntry<data>>&entries);
     bool find_data(data& find_data,indexEntry<data> &target,vector<indexEntry<data>>&entries);
     data get_data(data& find_data,indexEntry<data> &target,vector<indexEntry<data>>&entries);
-    /*void cout_all();*/
-
-private:
+    void cout_all();
+    vector<data> Get_show(data&find_data,vector<indexEntry<data>>&entries,vector<data>&);
+    vector<data> get_data_show(data& find_data,indexEntry<data> &target,vector<indexEntry<data>>&entries,vector<data>&);
     fstream indexfile_storage;
     fstream datafile_storage;
-
+private:
 /*##需要构造最小数据(每一种数据类型都需要构造一个最小的数据）！！！*/
 };
 #include "storage.h"
@@ -204,7 +204,7 @@ void storage<data>::insertData(data& insert_key_value,vector<indexEntry<data>>&e
         std::array<data,M> database ;
         database.fill(kv);
         database[0] = insert_key_value;
-        new_index.max =insert_key_value;
+        new_index.max = insert_key_value;
         datafile_storage.seekp(new_index.data_offset);
         datafile_storage.write(reinterpret_cast<char*>(&database),sizeof(database));
         new_index.size++;
@@ -300,26 +300,44 @@ bool storage<data>::Find(data&finddata,vector<indexEntry<data>>&entries) {
         return find_data(finddata,target,entries);
     }
 }
-
-/*template<>
-void storage<id_book>::cout_all() {
-    auto it = entries[0];
-    while(it.next != -1) {
-        if(it.size > 0) {
-            std::array<id_book , M> database;
-            datafile_storage.seekg(it.data_offset);
-            id_book tmp ;
-            datafile_storage.read(reinterpret_cast<char*>(&database),sizeof(database));
-            for(int i = 0;i < M;i++) {
-                if(database[i] != kv) {
-                    tmp = database[i];
-                    print(tmp.book_store);
-                }
-            }
-        }
-        it = entries[it.next];
+template<class data>
+vector<data> storage<data>::get_data_show(data& find_data,indexEntry<data> &target,vector<indexEntry<data>>&entries,vector<data>&store) {
+    if(target.size == 0) {
+        indexEntry next_index_entry = get_next(target,entries);
+        return get_data_show(find_data,next_index_entry,entries,store);
     }
-}*/
+    else {
+        std::array<data , M> database;
+        datafile_storage.seekg(target.data_offset);
+        datafile_storage.read(reinterpret_cast<char*>(&database),sizeof(database));
+        auto it = std::lower_bound(database.begin(), database.begin() + target.size,find_data );
+        for(auto i = it - database.begin();i <target.size;i++ ) {
+        if(database[i] == find_data) {
+             store.push_back(database[i]);
+        }
+         if( find_data < database[i])break;
+         if(i == target.size - 1) {
+             if(target.next != -1){
+                indexEntry next_index_entry = get_next(target,entries);
+               return  get_data_show(find_data,next_index_entry,entries,store);
+             }
+           }
+         }
+        return store;
+    }
+}
+
+template<class data>
+vector<data> storage<data>::Get_show(data&find_data,vector<indexEntry<data>>&entries,vector<data>& store) {
+    indexEntry<data> target = index_get(find_data,entries);
+    if(target.data_offset == 1) {
+        return store;
+    }
+    else {
+        return get_data_show(find_data,target,entries,store);
+    }
+}
+
 
 
 #endif //STORAGE_H
