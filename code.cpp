@@ -53,7 +53,7 @@ int main() {
                     size_t count = Size_t(command3);
                     Logsystem.ShowCount(count);
                 }
-/*##需要补充LOGSYSTEM的show函数,以及和图书系统购入售出相关的记录*/
+                /*##需要补充LOGSYSTEM的show函数,以及和图书系统购入售出相关的记录*/
             }
             else {
                 BookSystem.Show(line,UserSystem);
@@ -77,6 +77,9 @@ int main() {
         else if(command == "report") {
             if(scanner.NextToken() == "finance") {}
             if(scanner.NextToken() == "employee"){}
+        }
+        else if(command == "eof") {
+            return 0;
         }
         else {
             errorcout();
