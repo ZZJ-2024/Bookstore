@@ -277,14 +277,14 @@ void usersystem::Su(const string &line) {
         login new_login;
         new_login.id = userid;
         new_login.privilege = find.Privilege;
-        auto it = std::find(login_now.begin(),login_now.end(),new_login);
-        if(it != login_now.end()) {
-            std::iter_swap(it,login_now.end()-1);
-            login_now.back() = new_login;
-        }
-        else {
+        // auto it = std::find(login_now.begin(),login_now.end(),new_login);
+        // if(it != login_now.end()) {
+        //     std::iter_swap(it,login_now.end()-1);
+        //     login_now.back() = new_login;
+        // }
+        // else {
             login_now.push_back(new_login);
-        }
+        // }
         user_now = find;
     }
     else {
@@ -306,14 +306,14 @@ void usersystem::Su(const string &line) {
         login new_login;
         new_login.id = userid;
         new_login.privilege = find.Privilege;
-        auto it = std::find(login_now.begin(),login_now.end(),new_login);
-        if(it != login_now.end()) {
-            std::iter_swap(it,login_now.end()-1);
-            login_now.back() = new_login;
-        }
-        else {
+        // auto it = std::find(login_now.begin(),login_now.end(),new_login);
+        // if(it != login_now.end()) {
+        //     std::iter_swap(it,login_now.end()-1);
+        //     login_now.back() = new_login;
+        // }
+        // else {
             login_now.push_back(new_login);
-        }
+        // }
         user_now = find;
     }
 }
