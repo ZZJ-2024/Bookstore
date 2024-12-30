@@ -75,6 +75,6 @@ public:
     void Clear() {
         login_now.clear();
     }
-
+    void change_select(const string &original,const string new_isbn);
 };
 #endif //USERSYSTEM_H

@@ -382,6 +382,13 @@ void usersystem::Logout() {
 
     }
 }
+void usersystem::change_select(const string &original, const string new_isbn) {
+    for(auto &it : login_now) {
+        if(it.select == original) {
+            it.select = new_isbn;
+        }
+    }
+}
 
 
 

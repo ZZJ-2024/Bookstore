@@ -4,6 +4,7 @@
 #include<iostream>
 #include<cctype>
 #include<vector>
+#include <unordered_map>
 #include <sstream>
 using namespace std;
 void errorcout() ;
@@ -22,6 +23,7 @@ char* string_to_char(const string & str,int M);
 string skip_string (string & a) ;
 string char_to_string(char* a,int size);
 vector<string> split_string(const string & input,char delimiter);
+bool has_duplicate(const vector<string>& vec);
 class TokenScanner {
 public:
     TokenScanner() = default;

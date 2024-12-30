@@ -371,7 +371,9 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
         }
         if(original[1] == 'I') {
             int length = processed_string.length();
-            now_login.select = processed_string;
+            usersystem.change_select(isbn,processed_string);
+            // now_login.select = processed_string;
+//所有选了这个书的都得变化isbn
             for(int i = 0; i < length; i ++) {
                 to_store.ISBN[i] = processed_string[i];
             }
@@ -446,10 +448,16 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
         if(original[1] == 'k') {
             processed_string = processed_string.substr(1,processed_string.length()-2);
             string keyword_original =string(to_store.Keyword);
-            keyword_id find_key;
-            find_key.id = id;
+            // keyword_id find_key;
+            // find_key.id = id;
             int length = processed_string.length();
+            if(has_duplicate(split_string(processed_string,'|'))) {
+                errorcout();
+                return;
+            }
             for(auto it:split_string(keyword_original,'|')) {
+                keyword_id find_key;
+                 find_key.id = id;
                 int length_key = it.length();
                 for(int i = 0; i < length_key;i++) {
                     find_key.Keyword[i] = it[i];
@@ -466,6 +474,8 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 keyword_ids.insertData(find_key,keyword_ids.entries);
             }
             for(auto it:split_string(processed_string,'|')) {
+                keyword_id find_key;
+                find_key.id = id;
                 int length_key = it.length();
                 for(int i = 0; i < length_key;i++) {
                     find_key.Keyword[i] = it[i];

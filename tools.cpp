@@ -1,4 +1,7 @@
 #include"tools.h"
+
+
+
 void TokenScanner::Initialize(const string &original) {
     line = original;
     pos = 0;
@@ -193,5 +196,15 @@ vector<string> split_string(const string& input, char delimiter) {
 }
 void errorcout() {
     cout<<"Invalid\n";
+}
+bool has_duplicate(const vector<string> &vec) {
+    unordered_map<string,int>cnt_map;
+    for(auto& str:vec) {
+        cnt_map[str]++;
+        if(cnt_map[str] > 1) {
+            return true;
+        }
+    }
+    return false;
 }
 
