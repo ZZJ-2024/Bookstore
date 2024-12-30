@@ -1,3 +1,0 @@
-C:/Users/ROG/CLionProject/bookstore-plus/cmake-build-debug/CMakeFiles/code.dir
-C:/Users/ROG/CLionProject/bookstore-plus/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/ROG/CLionProject/bookstore-plus/cmake-build-debug/CMakeFiles/rebuild_cache.dir
