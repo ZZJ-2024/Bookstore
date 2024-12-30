@@ -68,6 +68,9 @@ public:
     login& get_login_now() {
         return login_now.back();
     }
+    void Clear() {
+        login_now.clear();
+    }
 
 };
 #endif //USERSYSTEM_H

@@ -9,7 +9,7 @@ logsystem::~logsystem() {
 }
 
 void logsystem::Show() {
-    cout<<"+ "<<income<<" - "<<revenue<<endl;
+    cout << std::fixed << std::setprecision(2) <<"+ "<<income<<" - "<<revenue<<endl;
 }
 void logsystem::Earn(const double & number) {
     record.push_back(number);
@@ -40,6 +40,6 @@ void logsystem::ShowCount(size_t &count) {
                 income_count += record[i];
             }
         }
-        cout<<"+ "<<income_count<<" - "<<revenue_count<<endl;
+        cout << std::fixed << std::setprecision(2) <<"+ "<<income_count<<" - "<<revenue_count<<endl;
     }
 }

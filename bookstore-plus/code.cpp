@@ -17,6 +17,7 @@ int main() {
         string command;
         command = scanner.NextToken();
         if(command == "quit" || command == "exit") {
+            UserSystem.Clear();
             return 0;
         }
         else if(command == "su") {

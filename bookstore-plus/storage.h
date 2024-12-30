@@ -175,7 +175,7 @@ void storage<data>::insert_data(data& insert_key_value,indexEntry<data>&target,v
     datafile_storage.read(reinterpret_cast<char*>(&database),sizeof(database));
     bool insert = false;
     auto it = std::lower_bound(database.begin(), database.begin() + target.size, insert_key_value);
-    if(*it == insert_key_value)return;
+    // if(*it == insert_key_value)return;
     for (int i = target.size; i > (it - database.begin()); --i) {
         database[i] = database[i - 1];
     }
@@ -326,7 +326,6 @@ vector<data> storage<data>::get_data_show(data& find_data,indexEntry<data> &targ
         return store;
     }
 }
-
 template<class data>
 vector<data> storage<data>::Get_show(data&find_data,vector<indexEntry<data>>&entries,vector<data>& store) {
     indexEntry<data> target = index_get(find_data,entries);

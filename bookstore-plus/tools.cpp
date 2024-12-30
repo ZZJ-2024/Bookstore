@@ -112,6 +112,9 @@ bool is_keyword(const string &str) {
 bool is_quantity(const string &str) {
     bool flag = true;
     int len = str.size();
+    if(Size_t(str) <= 0) {
+        return false;
+    }
     if(len > 10)flag = false;
     for(char ch : str) {
         if(!isdigit(ch))flag = false;

@@ -276,7 +276,7 @@ void booksystem::Buy(const string & line,logsystem&Logsystem,usersystem&UserSyst
         else {
             tmp.book_store.Quantity -= quantity_number;
             double earnmoney = quantity_number *  tmp.book_store.Price;
-            earnmoney = std::floor(earnmoney * 100) / 100.0;
+            cout<< std::fixed << std::setprecision(2) <<earnmoney<<endl;
             Logsystem.Earn(earnmoney);
             id_books.deleteData(tmp,id_books.entries);
             id_books.insertData(tmp,id_books.entries);
@@ -354,7 +354,17 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
     while(scanner.HasMoreToken()) {
         string original = scanner.NextToken();
         string processed_string = skip_string(original);
-        string isbn_original = string(find.ISBN,20);
+        isbn_id check;
+        int length = processed_string.length();
+        for(int i = 0;i < length; i++) {
+            check.ISBN[i] = processed_string[i];
+        }
+        check.ISBN[length] = '\0';
+        if(isbn_ids.Find(check,isbn_ids.entries)) {
+            errorcout();
+            return;
+        }
+        string isbn_original = string(find.ISBN);
         if(processed_string == isbn_original) {
             errorcout();
             return;
@@ -378,7 +388,6 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
         }
         if(original[1] == 'n') {
             processed_string = processed_string.substr(1,processed_string.length()-2);
-            // string name_original = char_to_string(to_store.BookName,60);
             bookname_id find_bookname;
             find_bookname.id = id;
             for(int i = 0; i < 60;i++) {
@@ -390,18 +399,23 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
             }
             to_store.BookName[length] = '\0';
             find_book.book_store = to_store;
+            vector<bookname_id> originals;
+            originals = bookname_ids.Get_show(find_bookname,bookname_ids.entries,originals);
             bookname_ids.deleteData(find_bookname,bookname_ids.entries);
+            for(auto it: originals) {
+                if(it.id != find_bookname.id) {
+                    bookname_ids.insertData(it,bookname_ids.entries);
+                }
+            }
             for(int i = 0; i < length; i ++) {
                 find_bookname.BookName[i] = processed_string[i];
             }
-            find_bookname.BookName[length] = '\0';
             bookname_ids.insertData(find_bookname,bookname_ids.entries);
             id_books.deleteData(find_book,id_books.entries);
             id_books.insertData(find_book,id_books.entries);
         }
         if(original[1] == 'a') {
             processed_string = processed_string.substr(1,processed_string.length()-2);
-            // string author_original = char_to_string(to_store.Author,60);
             author_id find_author;
             find_author.id = id;
             for(int i = 0; i < 60;i++) {
@@ -413,11 +427,17 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
             }
             to_store.Author[length] = '\0';
             find_book.book_store = to_store;
+            vector<author_id> originals;
+            originals = author_ids.Get_show(find_author,author_ids.entries,originals);
             author_ids.deleteData(find_author,author_ids.entries);
+            for(auto it: originals) {
+                if(it.id != find_author.id) {
+                    author_ids.insertData(it,author_ids.entries);
+                }
+            }
             for(int i = 0; i < length; i ++) {
                 find_author.Author[i] = processed_string[i];
             }
-            to_store.Author[length] = '\0';
             author_ids.insertData(find_author,author_ids.entries);
             id_books.deleteData(find_book,id_books.entries);
             id_books.insertData(find_book,id_books.entries);
@@ -425,7 +445,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
 /*##可能得改动*/
         if(original[1] == 'k') {
             processed_string = processed_string.substr(1,processed_string.length()-2);
-            string keyword_original = char_to_string(to_store.Keyword,60);
+            string keyword_original =string(to_store.Keyword);
             keyword_id find_key;
             find_key.id = id;
             int length = processed_string.length();
@@ -435,7 +455,15 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                     find_key.Keyword[i] = it[i];
                 }
                 find_key.Keyword[length] = '\0';
+                vector<keyword_id> originals;
+                originals = keyword_ids.Get_show(find_key,keyword_ids.entries,originals);
                 keyword_ids.deleteData(find_key,keyword_ids.entries);
+                for(auto it : originals) {
+                    if(it.id != find_key.id){
+                        keyword_ids.insertData(it,keyword_ids.entries);
+                    }
+                }
+                keyword_ids.insertData(find_key,keyword_ids.entries);
             }
             for(auto it:split_string(processed_string,'|')) {
                 int length_key = it.length();
