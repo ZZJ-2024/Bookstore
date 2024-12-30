@@ -24,10 +24,10 @@ const string KEYWORD_ID = "KEYWORD_ID";
 const string ID = "ID";
 const string BOOK = "BOOK";
 struct book {
-    char ISBN[20] = {};
-    char BookName[60] = {};
-    char Author[60] = {};
-    char Keyword[60] = {};
+    char ISBN[21] = {};
+    char BookName[61] = {};
+    char Author[61] = {};
+    char Keyword[61] = {};
     size_t Quantity = 0;
     double Price = 0.00;
     double TotalCost = 0.00;

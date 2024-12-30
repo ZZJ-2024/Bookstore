@@ -245,16 +245,6 @@ void storage<data>::deleteData(data&delete_key_value,vector<indexEntry<data>>&en
     }
 }
 template<class data>
-data storage<data>::Get(data&find_data,vector<indexEntry<data>>&entries) {
-    indexEntry<data> target = index_get(find_data,entries);
-    if(target.data_offset == 1) {
-        return kv;
-    }
-    else {
-        return get_data(find_data,target,entries);
-    }
-}
-template<class data>
 data storage<data>::get_data(data& find_data,indexEntry<data> &target,vector<indexEntry<data>>&entries) {
     if(target.size == 0) {
         indexEntry next_index_entry = get_next(target,entries);
@@ -269,6 +259,16 @@ data storage<data>::get_data(data& find_data,indexEntry<data> &target,vector<ind
             return *it;
         }
         return kv;
+    }
+}
+template<class data>
+data storage<data>::Get(data&find_data,vector<indexEntry<data>>&entries) {
+    indexEntry<data> target = index_get(find_data,entries);
+    if(target.data_offset == 1) {
+        return kv;
+    }
+    else {
+        return get_data(find_data,target,entries);
     }
 }
 template<class data>

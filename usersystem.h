@@ -11,9 +11,9 @@ using namespace std;
 const string USERINDEX = "USERINDEX";
 const string USER = "USER";
 struct user {
-    char Userid[30]={};
-    char Password[30] = {};
-    char UserName[30] = {};
+    char Userid[31]={};
+    char Password[31] = {};
+    char UserName[31] = {};
     int Privilege = 0;
     bool operator < (const user & other) const {
         return  string(Userid) < string ( other.Userid);
@@ -66,6 +66,9 @@ public:
     void Passwd(const string & line);
     void UserAdd(const string & line);
     void Delete(const string & line);
+    int login_number() {
+        return login_now.size();
+    }
     login& get_login_now() {
         return login_now.back();
     }

@@ -8,7 +8,6 @@ usersystem::usersystem() {
 usersystem::~usersystem() {
 
 }
-
 void usersystem::Register(const string &line) {
     scanner.Initialize(line);
     string su;
@@ -149,6 +148,10 @@ void usersystem::UserAdd(const string &line) {
     }
 }
 void usersystem::Passwd(const string &line) {
+    if(login_now.size() == 0) {
+        errorcout();
+        return;
+    }
     if(get_login_now().privilege < 1) {
         errorcout();
         return;
