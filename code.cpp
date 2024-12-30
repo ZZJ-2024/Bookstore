@@ -81,6 +81,9 @@ int main() {
         else if(command == "eof") {
             break;
         }
+        else if(command == "") {
+            break;
+        }
         else {
             errorcout();
         }
