@@ -72,6 +72,10 @@ void usersystem::Register(const string &line) {
     }
 }
 void usersystem::UserAdd(const string &line) {
+    if(login_number() == 0) {
+        errorcout();
+        return;
+    }
     if(get_login_now().privilege < 3) {
         errorcout();
         return;
@@ -248,7 +252,6 @@ void usersystem::Passwd(const string &line) {
 
 }
 void usersystem::Su(const string &line) {
-
     scanner.Initialize(line);
     string su;
     string userid;
@@ -320,6 +323,10 @@ void usersystem::Su(const string &line) {
     }
 }
 void usersystem::Delete(const string &line) {
+    if(login_number() == 0) {
+        errorcout();
+        return;
+    }
     if(get_login_now().privilege < 7) {
         errorcout();
         return;
@@ -384,12 +391,15 @@ void usersystem::Logout() {
 
     }
 }
-void usersystem::change_select(const string &original, const string new_isbn) {
+void usersystem::change_select(const string new_isbn) {
     for(auto &it : login_now) {
-        if(it.select == original) {
+        if(it.id == get_login_now().id) {
             it.select = new_isbn;
+            it.if_select = true;
         }
     }
+}
+void booksystem::get_id_max() {
 }
 
 

@@ -117,15 +117,19 @@ struct keyword_id {
 class booksystem {
 public:
     booksystem();
+    ~booksystem();
     void Show(const string & line,usersystem&);
     void Buy(const string &,logsystem&,usersystem&);
     void Select(const string & ,usersystem&);
     void Modify(const string & line,usersystem&);
     void Import(const string &line,usersystem&,logsystem&);
     void cout_all();
+    void get_id_max();
+
 private:
     TokenScanner scanner;
-    long long book_amount = 0;
+    long long book_amount ;
+    fstream bookamount;
     string isbn_select = "";
     storage<isbn_id> isbn_ids;
     storage<bookname_id> bookname_ids;

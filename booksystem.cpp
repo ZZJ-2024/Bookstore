@@ -6,7 +6,24 @@ booksystem::booksystem()
     author_ids.Set(AUTHOR,AUTHOR_ID);
     keyword_ids.Set(KEYWORD,KEYWORD_ID);
     id_books.Set(ID,BOOK);
+    if(!exist("book_amount"))bookamount.open("book_amount",std::ios::out);
+    bookamount.close();
+    bookamount.open("book_amount",ios::binary|ios::in|ios::out);
+    bookamount.seekg(0,std::ios::end);
+    if(bookamount.tellg() == 0) {
+        book_amount = 0;
+    }
+    else {
+        bookamount.seekg(0,std::ios::beg);
+        bookamount.read(reinterpret_cast<char*>(&book_amount),sizeof(long long ));
+    }
 }
+booksystem::~booksystem() {
+    bookamount.seekp(0,std::ios::beg);
+    bookamount.write(reinterpret_cast<char*>(&book_amount),sizeof(long long ));
+    bookamount.close();
+}
+
 void print(const book & book1) {
     for(int i = 0;i < 20;i++) {
         if(book1.ISBN[i] == '\0') {
@@ -200,6 +217,14 @@ void booksystem::Select(const string & line, usersystem &usersystem) {
     select_ = scanner.NextToken();
     string isbn;
     isbn = scanner.NextToken();
+    if(!is_isbn(isbn)) {
+        errorcout();
+        return;
+    }
+    if(scanner.HasMoreToken()) {
+        errorcout();
+        return;
+    }
     isbn_id find ;
     int len =  isbn.length();
     for(int i = 0; i < len;i++) {
@@ -227,12 +252,14 @@ void booksystem::Select(const string & line, usersystem &usersystem) {
         }
         insert2.ISBN[len] = '\0';
         isbn_ids.insertData(insert2,isbn_ids.entries);
-        usersystem.get_login_now().if_select = true;
-        usersystem.get_login_now().select = isbn;
+        usersystem.change_select(isbn);
+        /*usersystem.get_login_now().if_select = true;
+        usersystem.get_login_now().select = isbn;*/
     }
     else {
-        usersystem.get_login_now().if_select = true;
-        usersystem.get_login_now().select = isbn;
+        usersystem.change_select(isbn);
+        /*usersystem.get_login_now().if_select = true;
+        usersystem.get_login_now().select = isbn;*/
     }
 }
 void booksystem::Buy(const string & line,logsystem&Logsystem,usersystem&UserSystem) {
@@ -370,7 +397,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
     while(scanner.HasMoreToken()) {
         string original = scanner.NextToken();
         string processed_string = skip_string(original);
-        isbn_id check;
+        /*isbn_id check;
         int length = processed_string.length();
         for(int i = 0;i < length; i++) {
             check.ISBN[i] = processed_string[i];
@@ -380,14 +407,18 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
             errorcout();
             return;
         }
-        string isbn_original = string(find.ISBN);
+        string isbn_original = isbn;
         if(processed_string == isbn_original) {
             errorcout();
             return;
-        }
+        }*/
         if(original[1] == 'I') {
             int length = processed_string.length();
-            usersystem.change_select(isbn,processed_string);
+            usersystem.change_select(processed_string);
+            if(processed_string == isbn) {
+                errorcout();
+                return;
+            }
             // now_login.select = processed_string;
 //所有选了这个书的都得变化isbn
             for(int i = 0; i < length; i ++) {
