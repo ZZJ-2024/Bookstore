@@ -418,6 +418,16 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 errorcout();
                 return;
             }
+            isbn_id check;
+            int length_check= processed_string.length();
+            for(int i = 0;i < length; i++) {
+                check.ISBN[i] = processed_string[i];
+            }
+            check.ISBN[length] = '\0';
+            if(isbn_ids.Find(check,isbn_ids.entries)) {
+                errorcout();
+                return;
+            }
             usersystem.change_select(isbn,processed_string);
             // now_login.select = processed_string;
 //所有选了这个书的都得变化isbn
@@ -512,13 +522,16 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 find_key.Keyword[length] = '\0';
                 vector<keyword_id> originals;
                 originals = keyword_ids.Get_show(find_key,keyword_ids.entries,originals);
-                keyword_ids.deleteData(find_key,keyword_ids.entries);
+                for(auto it : originals) {
+                        keyword_ids.deleteData(it,keyword_ids.entries);
+                }
+                // keyword_ids.deleteData(find_key,keyword_ids.entries);
                 for(auto it : originals) {
                     if(it.id != find_key.id){
                         keyword_ids.insertData(it,keyword_ids.entries);
                     }
                 }
-                keyword_ids.insertData(find_key,keyword_ids.entries);
+                // keyword_ids.insertData(find_key,keyword_ids.entries);
             }
             for(auto it:split_string(processed_string,'|')) {
                 keyword_id find_key;
