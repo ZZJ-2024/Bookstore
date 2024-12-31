@@ -460,7 +460,10 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
             find_book.book_store = to_store;
             vector<bookname_id> originals;
             originals = bookname_ids.Get_show(find_bookname,bookname_ids.entries,originals);
-            bookname_ids.deleteData(find_bookname,bookname_ids.entries);
+            for(auto it: originals) {
+                    bookname_ids.deleteData(it,bookname_ids.entries);
+            }
+            // bookname_ids.deleteData(find_bookname,bookname_ids.entries);
             for(auto it: originals) {
                 if(it.id != find_bookname.id) {
                     bookname_ids.insertData(it,bookname_ids.entries);
@@ -488,7 +491,10 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
             find_book.book_store = to_store;
             vector<author_id> originals;
             originals = author_ids.Get_show(find_author,author_ids.entries,originals);
-            author_ids.deleteData(find_author,author_ids.entries);
+            for(auto it: originals) {
+                    author_ids.deleteData(it,author_ids.entries);
+            }
+            // author_ids.deleteData(find_author,author_ids.entries);
             for(auto it: originals) {
                 if(it.id != find_author.id) {
                     author_ids.insertData(it,author_ids.entries);
