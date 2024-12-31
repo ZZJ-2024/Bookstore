@@ -133,7 +133,7 @@ void booksystem::Show(const string &line,usersystem&UserSystem) {
             }
         }
         if(original[1] == 'a') {
-            if(index.length() != 0){
+
                 if(index.length() != 0) {
                     index =index.substr(1,index.length()-2);
                     vector<author_id> finds;
@@ -164,7 +164,7 @@ void booksystem::Show(const string &line,usersystem&UserSystem) {
                     errorcout();
                     return;
                 }
-            }
+
         }
             if(original[1] == 'k') {
                 if(index.length() != 0){
@@ -392,26 +392,12 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
     find_book.id = id;
     find_book = id_books.Get(find_book,id_books.entries);
     book to_store = find_book.book_store;
+    //获取当前的书本信息为to_store
     scanner.Initialize(line);
     modify = scanner.NextToken();
     while(scanner.HasMoreToken()) {
         string original = scanner.NextToken();
         string processed_string = skip_string(original);
-        /*isbn_id check;
-        int length = processed_string.length();
-        for(int i = 0;i < length; i++) {
-            check.ISBN[i] = processed_string[i];
-        }
-        check.ISBN[length] = '\0';
-        if(isbn_ids.Find(check,isbn_ids.entries)) {
-            errorcout();
-            return;
-        }
-        string isbn_original = isbn;
-        if(processed_string == isbn_original) {
-            errorcout();
-            return;
-        }*/
         if(original[1] == 'I') {
             int length = processed_string.length();
             if(processed_string == isbn) {
@@ -429,8 +415,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 return;
             }
             usersystem.change_select(isbn,processed_string);
-            // now_login.select = processed_string;
-//所有选了这个书的都得变化isbn
+            memset(to_store.ISBN,'\0',sizeof(to_store.ISBN));
             for(int i = 0; i < length; i ++) {
                 to_store.ISBN[i] = processed_string[i];
             }
@@ -453,6 +438,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 find_bookname.BookName[i] = to_store.BookName[i];
             }
             int length = processed_string.length();
+            memset(to_store.BookName,'\0',sizeof(to_store.BookName));
             for(int i = 0; i < length; i ++) {
                 to_store.BookName[i] = processed_string[i];
             }
@@ -484,6 +470,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 find_author.Author[i] = to_store.Author[i];
             }
             int length = processed_string.length();
+            memset(to_store.Author,'\0',sizeof(to_store.Author));
             for(int i = 0; i < length; i ++) {
                 to_store.Author[i] = processed_string[i];
             }
@@ -549,6 +536,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 find_key.Keyword[length] = '\0';
                 keyword_ids.insertData(find_key,keyword_ids.entries);
             }
+            memset(to_store.Keyword,'\0',sizeof(to_store.Keyword));
             for(int i = 0; i < length; i ++) {
                 to_store.Keyword[i] = processed_string[i];
             }
