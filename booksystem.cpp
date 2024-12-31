@@ -455,6 +455,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                     bookname_ids.insertData(it,bookname_ids.entries);
                 }
             }
+            memset(find_bookname.BookName,'\0',sizeof(find_bookname.BookName));
             for(int i = 0; i < length; i ++) {
                 find_bookname.BookName[i] = processed_string[i];
             }
@@ -487,6 +488,7 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                     author_ids.insertData(it,author_ids.entries);
                 }
             }
+            memset(find_author.Author,'\0',sizeof(find_author.Author));
             for(int i = 0; i < length; i ++) {
                 find_author.Author[i] = processed_string[i];
             }
