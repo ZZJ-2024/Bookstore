@@ -252,14 +252,14 @@ void booksystem::Select(const string & line, usersystem &usersystem) {
         }
         insert2.ISBN[len] = '\0';
         isbn_ids.insertData(insert2,isbn_ids.entries);
-        usersystem.change_select(isbn);
-        /*usersystem.get_login_now().if_select = true;
-        usersystem.get_login_now().select = isbn;*/
+        usersystem.get_login_now().if_select = true;
+        usersystem.get_login_now().select = isbn;
     }
     else {
-        usersystem.change_select(isbn);
         /*usersystem.get_login_now().if_select = true;
-        usersystem.get_login_now().select = isbn;*/
+        usersystem.change_select(usersystem.get_login_now().select,isbn);*/
+        usersystem.get_login_now().if_select = true;
+        usersystem.get_login_now().select = isbn;
     }
 }
 void booksystem::Buy(const string & line,logsystem&Logsystem,usersystem&UserSystem) {
@@ -414,11 +414,11 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
         }*/
         if(original[1] == 'I') {
             int length = processed_string.length();
-            usersystem.change_select(processed_string);
             if(processed_string == isbn) {
                 errorcout();
                 return;
             }
+            usersystem.change_select(isbn,processed_string);
             // now_login.select = processed_string;
 //所有选了这个书的都得变化isbn
             for(int i = 0; i < length; i ++) {
