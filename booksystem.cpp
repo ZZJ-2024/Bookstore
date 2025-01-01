@@ -604,8 +604,7 @@ void booksystem::Import(const string &line,usersystem&usersystem,logsystem&Logsy
     }
     size_t quantity_number = Size_t(quantity);
     double totalcost_number = Double(totalcost);
-    double totalcost_number2 = std::floor(totalcost_number * 100) / 100.0;
-    Logsystem.Revenue(totalcost_number2);
+    Logsystem.Revenue(totalcost_number);
     string select = now_login.select;
     isbn_id find;
     int len = select.length();
