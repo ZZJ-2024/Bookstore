@@ -11,4 +11,5 @@ add_executable(
         logsystem.cpp
         usersystem.cpp
         booksystem.cpp
+        logsystem.cpp
 )

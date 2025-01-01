@@ -507,6 +507,11 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 errorcout();
                 return;
             }
+            /*vector<string> keyword_originals = split_string(keyword_original,'|');
+            set<keyword_id>keyword_ids_original;
+            */
+
+
             for(auto it:split_string(keyword_original,'|')) {
                 keyword_id find_key;
                  find_key.id = id;
@@ -514,9 +519,13 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 for(int i = 0; i < length_key;i++) {
                     find_key.Keyword[i] = it[i];
                 }
-                find_key.Keyword[length] = '\0';
+                find_key.Keyword[length_key] = '\0';
+
+//删除机制有问题，因为插入时候排序了，可能得遍历？
                 vector<keyword_id> originals;
                 originals = keyword_ids.Get_show(find_key,keyword_ids.entries,originals);
+                set<keyword_id>originals_keyword_ids;
+
                 for(auto it : originals) {
                         keyword_ids.deleteData(it,keyword_ids.entries);
                 }
@@ -528,6 +537,8 @@ void booksystem::Modify(const string &line,usersystem&usersystem) {
                 }
                 // keyword_ids.insertData(find_key,keyword_ids.entries);
             }
+
+            
             for(auto it:split_string(processed_string,'|')) {
                 keyword_id find_key;
                 find_key.id = id;
