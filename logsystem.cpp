@@ -1,10 +1,38 @@
 #include"logsystem.h"
 logsystem::logsystem() {
-    if(!exist(LOGDATA))datafile.open(LOGDATA,std::ios::out);
-    datafile.close();
-    datafile.open(LOGDATA,ios::binary|ios::in|ios::out);
+    if(!exist(LOGDATA)) {
+        datafile.open(LOGDATA,std::ios::out);
+    }
+        datafile.close();
+        datafile.open(LOGDATA,ios::binary|ios::in|ios::out);
+        datafile.seekg(0,std::ios::end);
+        if(datafile.tellg() == 0) {
+            income = 0;
+            revenue = 0;
+            records = 0;
+        }
+        else {
+            datafile.seekg(0,std::ios::beg);
+            datafile.read(reinterpret_cast<char*>(&income),sizeof(double));
+            datafile.read(reinterpret_cast<char*>(&revenue),sizeof(double));
+            datafile.read(reinterpret_cast<char*>(&records),sizeof(long long ));
+            for(long long i = 0;i < records;i++) {
+                double tmp;
+                datafile.read(reinterpret_cast<char*>(&tmp),sizeof(double));
+                record.push_back(tmp);
+            }
+        }
 }
 logsystem::~logsystem() {
+    datafile.seekp(0,std::ios::beg);
+    datafile.write(reinterpret_cast<char*>(&income),sizeof(double));
+    datafile.write(reinterpret_cast<char*>(&revenue),sizeof(double));
+    datafile.write(reinterpret_cast<char*>(&records),sizeof(long long ));
+    for(long long i = 0;i < records;i++) {
+        double tmp;
+        tmp = record[i];
+        datafile.write(reinterpret_cast<char*>(&tmp),sizeof(double));
+    }
     datafile.close();
 }
 

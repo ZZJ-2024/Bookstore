@@ -23,9 +23,9 @@ public:
 
 private:
         vector<double> record;
-        double income = 0.00;
-        double revenue = 0.00;
+        double income ;
+        double revenue ;
         fstream datafile;
-        long long records = 0;
+        long long records ;
 };
 #endif //LOGSYSTEM_H
