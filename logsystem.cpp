@@ -8,7 +8,11 @@ logsystem::~logsystem() {
     datafile.close();
 }
 
-void logsystem::Show() {
+void logsystem::Show(usersystem&usersystem) {
+    if(usersystem.login_number() == 0 || usersystem.get_login_now().privilege < 7) {
+        errorcout();
+        return;
+    }
     cout << std::fixed << std::setprecision(2) <<"+ "<<income<<" - "<<revenue<<endl;
 }
 void logsystem::Earn(const double & number) {
@@ -21,7 +25,11 @@ void logsystem::Revenue(const double &number) {
     revenue += number;
     records++;
 }
-void logsystem::ShowCount(size_t &count) {
+void logsystem::ShowCount(size_t &count,usersystem&usersystem) {
+    if(usersystem.login_number() == 0 || usersystem.get_login_now().privilege < 7) {
+        errorcout();
+        return;
+    }
     if(count == 0) {
         cout<<endl;
     }

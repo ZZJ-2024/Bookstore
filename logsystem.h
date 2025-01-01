@@ -7,6 +7,8 @@
 #include<fstream>
 #include "tools.h"
 #include "storage.h"
+#include"usersystem.h"
+class usersystem;
 using namespace std;
 const string LOGDATA = "LOGDATA";
 class logsystem {
@@ -14,8 +16,8 @@ public:
         logsystem();
         ~logsystem();
         long long count;
-        void ShowCount(size_t & count);
-        void Show();
+        void ShowCount(size_t & count,usersystem &);
+        void Show(usersystem &);
         void Earn(const double&);
         void Revenue(const double&);
 

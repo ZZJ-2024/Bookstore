@@ -43,7 +43,7 @@ int main() {
             string command3 ;
             if(command2 == "finance") {
                 if(!scanner.HasMoreToken()) {
-                    Logsystem.Show();
+                    Logsystem.Show(UserSystem);
                 }
                 else {
                     command3 = scanner.NextToken();
@@ -51,7 +51,7 @@ int main() {
                         errorcout();
                     }
                     size_t count = Size_t(command3);
-                    Logsystem.ShowCount(count);
+                    Logsystem.ShowCount(count,UserSystem);
                 }
                 /*##需要补充LOGSYSTEM的show函数,以及和图书系统购入售出相关的记录*/
             }
